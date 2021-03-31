@@ -28,9 +28,12 @@
             result.Append("KT");//KT
             if (windData.AverageWindDirection != null)
             {
-                result.Append($"{windData.MinimumWindDirection,000}");//dndndn
-                result.Append("V");//V
-                result.Append($"{windData.MaximumWindDirection,000}");//dxdxdx
+                if (windData.MinimumWindDirection - windData.MaximumWindDirection >= 60 && windData.MinimumWindDirection - windData.MaximumWindDirection <= 180 && windData.AverageWindSpeed > 3)
+                {
+                    result.Append($"{windData.MinimumWindDirection,000}");//dndndn
+                    result.Append("V");//V
+                    result.Append($"{windData.MaximumWindDirection,000}");//dxdxdx
+                }
             }
 
             return result.ToString();
