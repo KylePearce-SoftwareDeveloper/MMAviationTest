@@ -76,5 +76,23 @@
             Assert.That(result, Is.EqualTo(expected));
         }
 
+        [TestCase(0, "00000KT")]
+        [TestCase(1, "VRB01G28KT")]
+        public void Average_wind_direction_is_correct_extra_extra_extra(double? windSpeed, string expected)
+        {
+            var data = new WindData
+            {
+                AverageWindDirection = 90,
+                AverageWindSpeed = windSpeed,
+                MaximumWindSpeed = 28,
+                MinimumWindDirection = 100,
+                MaximumWindDirection = 200
+            };
+
+            var result = formatter.FormatWind(data);
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
     }
 }
