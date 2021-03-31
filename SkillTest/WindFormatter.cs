@@ -19,8 +19,24 @@
                 result.Append("///");
             }
             else
-            {
-                result.Append($"{windData.AverageWindDirection,000}");//ddd
+            {//ddd
+                int count = 0;
+                double temp = (double) windData.AverageWindDirection / 10.0;
+                while(temp >= 1.0)
+                {
+                    count++;
+                    temp /= 10.0;
+                }
+                if (count == 0)
+                {
+                    result.Append($"00{windData.AverageWindDirection,000}");
+                }else if(count == 1)
+                {
+                    result.Append($"0{windData.AverageWindDirection,000}");
+                }else if(count == 2)
+                {
+                    result.Append($"{windData.AverageWindDirection,000}");
+                }
             }
             result.Append($"{windData.AverageWindSpeed,00}");//ff
             if(windData.MaximumWindSpeed - windData.AverageWindSpeed > 10)
