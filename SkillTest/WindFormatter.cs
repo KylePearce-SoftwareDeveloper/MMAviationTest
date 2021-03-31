@@ -30,6 +30,7 @@
         public string FormatWind(WindData windData)
         {
             var result = new StringBuilder();
+            bool vrb = false;
             //ddd ff Gfmfm KT dndndnVdxdxdx
             if (windData.AverageWindDirection == null)
             {
@@ -41,6 +42,12 @@
                 if (windData.MaximumWindDirection - windData.MinimumWindDirection >= 60 && windData.MaximumWindDirection - windData.MinimumWindDirection <= 180 && windData.AverageWindSpeed <= 3)
                 {
                     result.Append("VRB");
+                    vrb = true;
+                }
+                else if (windData.MaximumWindDirection - windData.MinimumWindDirection >= 180)
+                {
+                    result.Append("VRB");
+                    vrb = true;
                 }
                 else
                 {
@@ -83,11 +90,14 @@
             result.Append("KT");//KT
             if (windData.AverageWindDirection != null)
             {
-                if (windData.MaximumWindDirection - windData.MinimumWindDirection >= 60 && windData.MaximumWindDirection - windData.MinimumWindDirection <= 180 && windData.AverageWindSpeed > 3)
+                if (!vrb)
                 {
-                    result.Append($"{windData.MinimumWindDirection,000}");//dndndn
-                    result.Append("V");//V
-                    result.Append($"{windData.MaximumWindDirection,000}");//dxdxdx
+                    if (windData.MaximumWindDirection - windData.MinimumWindDirection >= 60 && windData.MaximumWindDirection - windData.MinimumWindDirection <= 180 && windData.AverageWindSpeed > 3)
+                    {
+                        result.Append($"{windData.MinimumWindDirection,000}");//dndndn
+                        result.Append("V");//V
+                        result.Append($"{windData.MaximumWindDirection,000}");//dxdxdx
+                    }
                 }
             }
 
