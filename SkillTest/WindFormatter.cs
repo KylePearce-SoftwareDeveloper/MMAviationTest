@@ -13,11 +13,26 @@
         public string FormatWind(WindData windData)
         {
             var result = new StringBuilder();
+            //ddd ff Gfmfm KT dndndnVdxdxdx
+            if (windData.AverageWindDirection == null)
+            {
+                result.Append("///");
+            }
+            else
+            {
+                result.Append($"{windData.AverageWindDirection,000}");//ddd
+            }
+            result.Append($"{windData.AverageWindSpeed,00}");//ff
+            if(windData.MaximumWindSpeed - windData.AverageWindSpeed > 10)
+                result.Append($"G{windData.MaximumWindSpeed,00}");//Gfmfm
+            result.Append("KT");//KT
+            if (windData.AverageWindDirection != null)
+            {
+                result.Append($"{windData.MinimumWindDirection,000}");//dndndn
+                result.Append("V");//V
+                result.Append($"{windData.MaximumWindDirection,000}");//dxdxdx
+            }
 
-            result.Append($"{windData.AverageWindDirection,000}");
-            result.Append($"{windData.AverageWindSpeed,00}");
-            result.Append("KT");
-            
             return result.ToString();
         }
     }

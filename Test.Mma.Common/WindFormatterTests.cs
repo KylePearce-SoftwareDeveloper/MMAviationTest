@@ -13,9 +13,10 @@
         public void SetUp()
         {
             formatter = new WindFormatter();
+            Assert.IsNotNull(formatter);
         }
 
-        [TestCase(null, "///25KY")]
+        [TestCase(null, "///25KT")]
         [TestCase(10, "01025KT")]
         [TestCase(15, "01025KT")]
         [TestCase(350, "35025KT")]
