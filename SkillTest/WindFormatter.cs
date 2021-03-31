@@ -10,6 +10,11 @@
 
     public class WindFormatter : IWindFormatter
     {
+        double? RoundDown(double? toRound)
+        {
+            return toRound - toRound % 10;
+        }
+
         public string FormatWind(WindData windData)
         {
             var result = new StringBuilder();
@@ -20,6 +25,7 @@
             }
             else
             {//ddd
+                windData.AverageWindDirection = RoundDown(windData.AverageWindDirection);
                 int count = 0;
                 double temp = (double) windData.AverageWindDirection / 10.0;
                 while(temp >= 1.0)
