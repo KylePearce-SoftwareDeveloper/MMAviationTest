@@ -90,21 +90,58 @@
                 }
                 else if (count2 == 2)
                 {
-                    result.Append($"P99");
+                    result.Append("P99");
                 }
-
-                if (windData.MaximumWindSpeed - windData.AverageWindSpeed > 10)
-                    result.Append($"G{windData.MaximumWindSpeed,00}");//Gfmfm
-                result.Append("KT");//KT
+                //Gfmfm
+                if (windData.MaximumWindSpeed - windData.AverageWindSpeed >= 10)
+                {
+                    if (windData.MaximumWindSpeed > 99)
+                    {
+                        result.Append($"GP99");
+                    }
+                    else
+                    {
+                        result.Append($"G{windData.MaximumWindSpeed,00}");
+                    }
+                }
+                //KT
+                result.Append("KT");
+                //dndndnVdxdxdx
                 if (windData.AverageWindDirection != null)
                 {
                     if (!vrb)
                     {
                         if (windData.MaximumWindDirection - windData.MinimumWindDirection >= 60 && windData.MaximumWindDirection - windData.MinimumWindDirection <= 180 && windData.AverageWindSpeed > 3)
                         {
-                            result.Append($"{windData.MinimumWindDirection,000}");//dndndn
+                            windData.MinimumWindDirection = RoundDown(windData.MinimumWindDirection);
+                            windData.MaximumWindDirection = RoundDown(windData.MaximumWindDirection);
+                            int count3 = CountDigits(windData.MinimumWindDirection);
+                            int count4 = CountDigits(windData.MaximumWindDirection);
+                            if (count3 == 0)
+                            {
+                                result.Append($"00{windData.MinimumWindDirection,000}");
+                            }
+                            else if (count3 == 1)
+                            {
+                                result.Append($"0{windData.MinimumWindDirection,000}");
+                            }
+                            else if (count3 == 2)
+                            {
+                                result.Append($"{windData.MinimumWindDirection,000}");
+                            }
                             result.Append("V");//V
-                            result.Append($"{windData.MaximumWindDirection,000}");//dxdxdx
+                            if (count4 == 0)
+                            {
+                                result.Append($"00{windData.MaximumWindDirection,000}");
+                            }
+                            else if (count4 == 1)
+                            {
+                                result.Append($"0{windData.MaximumWindDirection,000}");
+                            }
+                            else if (count4 == 2)
+                            {
+                                result.Append($"{windData.MaximumWindDirection,000}");
+                            }
                         }
                     }
                 }
