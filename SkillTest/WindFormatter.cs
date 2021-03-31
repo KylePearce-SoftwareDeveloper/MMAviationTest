@@ -15,6 +15,18 @@
             return toRound - toRound % 10;
         }
 
+        int CountDigits(double? data)
+        {
+            int count = 0;
+            double temp = (double) data / 10.0;
+            while (temp >= 1.0)
+            {
+                count++;
+                temp /= 10.0;
+            }
+            return count;
+        }
+
         public string FormatWind(WindData windData)
         {
             var result = new StringBuilder();
@@ -26,13 +38,13 @@
             else
             {//ddd
                 windData.AverageWindDirection = RoundDown(windData.AverageWindDirection);
-                int count = 0;
-                double temp = (double) windData.AverageWindDirection / 10.0;
-                while(temp >= 1.0)
-                {
-                    count++;
-                    temp /= 10.0;
-                }
+                int count = CountDigits(windData.AverageWindDirection);
+                //double temp = (double) windData.AverageWindDirection / 10.0;
+                //while(temp >= 1.0)
+                //{
+                //    count++;
+                //    temp /= 10.0;
+                //}
                 if (count == 0)
                 {
                     result.Append($"00{windData.AverageWindDirection,000}");
@@ -44,7 +56,19 @@
                     result.Append($"{windData.AverageWindDirection,000}");
                 }
             }
-            result.Append($"{windData.AverageWindSpeed,00}");//ff
+            //ff
+            int count2 = CountDigits(windData.AverageWindSpeed);
+            if(count2 == 0)
+            {
+                result.Append($"0{windData.AverageWindSpeed,00}");
+            }else if(count2 == 1)
+            {
+                result.Append($"{windData.AverageWindSpeed,00}");
+            }else if(count2 == 2)
+            {
+                result.Append($"P99");
+            }
+            
             if(windData.MaximumWindSpeed - windData.AverageWindSpeed > 10)
                 result.Append($"G{windData.MaximumWindSpeed,00}");//Gfmfm
             result.Append("KT");//KT
