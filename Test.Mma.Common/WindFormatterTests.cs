@@ -156,5 +156,30 @@
             Assert.That(result, Is.EqualTo(expected));
         }
 
+        [TestCase(115, 150, 160, "11010KT")]
+        [TestCase(110, 155, 260, "11010KT150V260")]
+        [TestCase(110, 150, 265, "11010KT150V260")]
+        [TestCase(113, 150, 160, "11010KT")]
+        [TestCase(110, 153, 260, "11010KT150V260")]
+        [TestCase(110, 150, 263, "11010KT150V260")]
+        [TestCase(117, 150, 160, "12010KT")]
+        [TestCase(110, 157, 260, "11010KT160V260")]
+        [TestCase(110, 150, 267, "11010KT150V270")]
+        public void Check_wind_direction_rounding(double? averageWindDirection, double? minimumWindDirection, double? maximumWindDirection, string expected)
+        {
+            var data = new WindData
+            {
+                AverageWindDirection = averageWindDirection,
+                AverageWindSpeed = 10,
+                MaximumWindSpeed = 15,
+                MinimumWindDirection = minimumWindDirection,
+                MaximumWindDirection = maximumWindDirection
+            };
+
+            var result = formatter.FormatWind(data);
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
     }
 }
