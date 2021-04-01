@@ -57,6 +57,9 @@
             }else if(invalidWindDirection)
             {
                 result.Append("InvalidWindDirectionError");
+            }else if(windData.MaximumWindSpeed < 1)
+            {
+                result.Append("InvalidMaximumWindSpeedError");
             }
             else
             {
@@ -117,13 +120,18 @@
                 //Gfmfm
                 if (windData.MaximumWindSpeed - windData.AverageWindSpeed >= 10)
                 {
-                    if (windData.MaximumWindSpeed > 99)
+                    int countGfmfm = CountDigits(windData.MaximumWindSpeed);
+                    if (countGfmfm == 0)
                     {
-                        result.Append($"GP99");
+                        result.Append($"G0{windData.MaximumWindSpeed,00}");
                     }
-                    else
+                    else if (countGfmfm == 1)
                     {
                         result.Append($"G{windData.MaximumWindSpeed,00}");
+                    }
+                    else if (countGfmfm == 2)
+                    {
+                        result.Append("GP99");
                     }
                 }
                 //KT

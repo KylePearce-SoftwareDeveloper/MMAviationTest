@@ -115,5 +115,24 @@
             Assert.That(result, Is.EqualTo(expected));
         }
 
+        [TestCase(-40, "InvalidMaximumWindSpeedError")]
+        [TestCase(140, "10020GP99KT")]
+        [TestCase(40, "10020G40KT")]
+        public void Invalid_maximum_wind_speed(double? maximumWindSpeed, string expected)
+        {
+            var data = new WindData
+            {
+                AverageWindDirection = 100,
+                AverageWindSpeed = 20,
+                MaximumWindSpeed = maximumWindSpeed,
+                MinimumWindDirection = 90,
+                MaximumWindDirection = 110
+            };
+
+            var result = formatter.FormatWind(data);
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
     }
 }
