@@ -10,8 +10,16 @@
 
     public class WindFormatter : IWindFormatter
     {
-        double? RoundDown(double? toRound)
+        double? Round(double? toRound)
         {
+            //Round up
+            double? remainder = toRound % 10;
+            if(remainder > 5)
+            {
+                double? roundUp = 10 - remainder;
+                return toRound + roundUp;
+            }
+            //Round down
             return toRound - toRound % 10;
         }
 
@@ -32,9 +40,23 @@
             var result = new StringBuilder();
             bool vrb = false;
             //ddd ff Gfmfm KT dndndnVdxdxdx
+            //Preliminary error checks
+            bool invalidWindDirection = false;
+            if(!invalidWindDirection)
+            {
+                if (windData.AverageWindDirection < 10 || windData.AverageWindDirection > 360)
+                    invalidWindDirection = true;
+                if (windData.MinimumWindDirection < 10 || windData.MinimumWindDirection > 360)
+                    invalidWindDirection = true;
+                if (windData.MaximumWindDirection < 10 || windData.MaximumWindDirection > 360)
+                    invalidWindDirection = true;
+            }
             if (windData.AverageWindSpeed < 1)
             {
                 result.Append("00000KT");
+            }else if(invalidWindDirection)
+            {
+                result.Append("InvalidWindDirectionError");
             }
             else
             {
@@ -44,7 +66,7 @@
                 }
                 else
                 {//ddd
-                    windData.AverageWindDirection = RoundDown(windData.AverageWindDirection);
+                    windData.AverageWindDirection = Round(windData.AverageWindDirection);
                     if (windData.MaximumWindDirection - windData.MinimumWindDirection >= 60 && windData.MaximumWindDirection - windData.MinimumWindDirection <= 180 && windData.AverageWindSpeed <= 3)
                     {
                         result.Append("VRB");
@@ -113,8 +135,8 @@
                     {
                         if (windData.MaximumWindDirection - windData.MinimumWindDirection >= 60 && windData.MaximumWindDirection - windData.MinimumWindDirection <= 180 && windData.AverageWindSpeed > 3)
                         {
-                            windData.MinimumWindDirection = RoundDown(windData.MinimumWindDirection);
-                            windData.MaximumWindDirection = RoundDown(windData.MaximumWindDirection);
+                            windData.MinimumWindDirection = Round(windData.MinimumWindDirection);
+                            windData.MaximumWindDirection = Round(windData.MaximumWindDirection);
                             int count3 = CountDigits(windData.MinimumWindDirection);
                             int count4 = CountDigits(windData.MaximumWindDirection);
                             if (count3 == 0)

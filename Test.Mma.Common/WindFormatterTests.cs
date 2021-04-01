@@ -94,5 +94,26 @@
             Assert.That(result, Is.EqualTo(expected));
         }
 
+        [TestCase(380, 120, 150, "InvalidWindDirectionError")]
+        [TestCase(100, 0, 20, "InvalidWindDirectionError")]
+        [TestCase(100, 120, 400, "InvalidWindDirectionError")]
+        [TestCase(5, 400, 500, "InvalidWindDirectionError")]
+        [TestCase(100, 120, 150, "10020KT")]
+        public void Invalid_wind_direction(double? averageWindDirection, double? minimumWindDirection, double? maximumWindDirection, string expected)
+        {
+            var data = new WindData
+            {
+                AverageWindDirection = averageWindDirection,
+                AverageWindSpeed = 20,
+                MaximumWindSpeed = 28,
+                MinimumWindDirection = minimumWindDirection,
+                MaximumWindDirection = maximumWindDirection
+            };
+
+            var result = formatter.FormatWind(data);
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
     }
 }
