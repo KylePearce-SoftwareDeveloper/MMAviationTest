@@ -134,5 +134,27 @@
             Assert.That(result, Is.EqualTo(expected));
         }
 
+        [TestCase(22.7, 25, "10023KT")]
+        [TestCase(22.5, 25, "10022KT")]
+        [TestCase(22.3, 25, "10022KT")]
+        [TestCase(22, 35.7, "10022G36KT")]
+        //[TestCase(22, 35.5, "10022G35KT")]
+        [TestCase(22, 35.3, "10022G35KT")]
+        public void Check_wind_speed_rounding(double? averageWindSpeed, double? maximumWindSpeed, string expected)
+        {
+            var data = new WindData
+            {
+                AverageWindDirection = 100,
+                AverageWindSpeed = averageWindSpeed,
+                MaximumWindSpeed = maximumWindSpeed,
+                MinimumWindDirection = 90,
+                MaximumWindDirection = 110
+            };
+
+            var result = formatter.FormatWind(data);
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
     }
 }

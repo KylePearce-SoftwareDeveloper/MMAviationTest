@@ -104,6 +104,7 @@
                     }
                 }
                 //ff
+                windData.AverageWindSpeed = (double?)System.Math.Round((decimal)windData.AverageWindSpeed);
                 int count2 = CountDigits(windData.AverageWindSpeed);
                 if (count2 == 0)
                 {
@@ -120,6 +121,7 @@
                 //Gfmfm
                 if (windData.MaximumWindSpeed - windData.AverageWindSpeed >= 10)
                 {
+                    windData.MaximumWindSpeed = (double?)System.Math.Round((decimal)windData.MaximumWindSpeed);
                     int countGfmfm = CountDigits(windData.MaximumWindSpeed);
                     if (countGfmfm == 0)
                     {
