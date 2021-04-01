@@ -41,7 +41,7 @@
         [TestCase(3, 100, 200, "VRB03G28KT")]
         [TestCase(10, 200, 250, "09010G28KT")]
         [TestCase(20, 200, 350, "09020KT200V350")]
-        public void Average_wind_direction_is_correct_extra(double? averageSpeed, double? minDirection, double? maxDirection, string expected)
+        public void Wind_direction_is_correct(double? averageSpeed, double? minDirection, double? maxDirection, string expected)
         {
             var data = new WindData
             {
@@ -60,7 +60,7 @@
         [TestCase(100, 280, "VRB20KT")]
         [TestCase(100, 350, "VRB20KT")]
         [TestCase(100, 150, "09020KT")]
-        public void Average_wind_direction_is_correct_extra_extra(double? minDirection, double? maxDirection, string expected)
+        public void MinMax_wind_direction_is_correct(double? minDirection, double? maxDirection, string expected)
         {
             var data = new WindData
             {
@@ -78,7 +78,7 @@
 
         [TestCase(0, "00000KT")]
         [TestCase(1, "VRB01G28KT")]
-        public void Average_wind_direction_is_correct_extra_extra_extra(double? windSpeed, string expected)
+        public void Wind_speed_is_correct(double? windSpeed, string expected)
         {
             var data = new WindData
             {

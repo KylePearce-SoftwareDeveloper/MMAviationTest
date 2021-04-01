@@ -68,7 +68,8 @@
                     result.Append("///");
                 }
                 else
-                {//ddd
+                {
+                    //ddd
                     windData.AverageWindDirection = Round(windData.AverageWindDirection);
                     if (windData.MaximumWindDirection - windData.MinimumWindDirection >= 60 && windData.MaximumWindDirection - windData.MinimumWindDirection <= 180 && windData.AverageWindSpeed <= 3)
                     {
@@ -82,22 +83,16 @@
                     }
                     else
                     {
-                        int count = CountDigits(windData.AverageWindDirection);
-                        //double temp = (double) windData.AverageWindDirection / 10.0;
-                        //while(temp >= 1.0)
-                        //{
-                        //    count++;
-                        //    temp /= 10.0;
-                        //}
-                        if (count == 0)
+                        int countDdd = CountDigits(windData.AverageWindDirection);
+                        if (countDdd == 0)
                         {
                             result.Append($"00{windData.AverageWindDirection,000}");
                         }
-                        else if (count == 1)
+                        else if (countDdd == 1)
                         {
                             result.Append($"0{windData.AverageWindDirection,000}");
                         }
-                        else if (count == 2)
+                        else if (countDdd == 2)
                         {
                             result.Append($"{windData.AverageWindDirection,000}");
                         }
@@ -105,16 +100,16 @@
                 }
                 //ff
                 windData.AverageWindSpeed = (double?)System.Math.Round((decimal)windData.AverageWindSpeed);
-                int count2 = CountDigits(windData.AverageWindSpeed);
-                if (count2 == 0)
+                int countFf = CountDigits(windData.AverageWindSpeed);
+                if (countFf == 0)
                 {
                     result.Append($"0{windData.AverageWindSpeed,00}");
                 }
-                else if (count2 == 1)
+                else if (countFf == 1)
                 {
                     result.Append($"{windData.AverageWindSpeed,00}");
                 }
-                else if (count2 == 2)
+                else if (countFf == 2)
                 {
                     result.Append("P99");
                 }
@@ -147,30 +142,31 @@
                         {
                             windData.MinimumWindDirection = Round(windData.MinimumWindDirection);
                             windData.MaximumWindDirection = Round(windData.MaximumWindDirection);
-                            int count3 = CountDigits(windData.MinimumWindDirection);
-                            int count4 = CountDigits(windData.MaximumWindDirection);
-                            if (count3 == 0)
+                            int countDndndn = CountDigits(windData.MinimumWindDirection);
+                            int countDxdxdx = CountDigits(windData.MaximumWindDirection);
+                            if (countDndndn == 0)
                             {
                                 result.Append($"00{windData.MinimumWindDirection,000}");
                             }
-                            else if (count3 == 1)
+                            else if (countDndndn == 1)
                             {
                                 result.Append($"0{windData.MinimumWindDirection,000}");
                             }
-                            else if (count3 == 2)
+                            else if (countDndndn == 2)
                             {
                                 result.Append($"{windData.MinimumWindDirection,000}");
                             }
-                            result.Append("V");//V
-                            if (count4 == 0)
+                            //V
+                            result.Append("V");
+                            if (countDxdxdx == 0)
                             {
                                 result.Append($"00{windData.MaximumWindDirection,000}");
                             }
-                            else if (count4 == 1)
+                            else if (countDxdxdx == 1)
                             {
                                 result.Append($"0{windData.MaximumWindDirection,000}");
                             }
-                            else if (count4 == 2)
+                            else if (countDxdxdx == 2)
                             {
                                 result.Append($"{windData.MaximumWindDirection,000}");
                             }
